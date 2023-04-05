@@ -16,49 +16,65 @@ import pdb
 
 warnings.filterwarnings("ignore")
 
+# def make_dataset(root, mode):
+#     assert mode in ['train', 'val', 'test']
+#     items = []
+#     if mode == 'train':
+#         train_img_path = os.path.join(root, 'train', 'Img')
+#         train_mask_path = os.path.join(root, 'train', 'GT')
+        
+#         images = os.listdir(train_img_path)
+#         labels = os.listdir(train_mask_path)
+
+#         images.sort()
+#         labels.sort()
+        
+#         for it_im, it_gt in zip(images, labels):
+#             item = (os.path.join(train_img_path, it_im), os.path.join(train_mask_path, it_gt))
+#             items.append(item)
+        
+        
+#     elif mode == 'val':
+#         train_img_path = os.path.join(root, 'val', 'Img')
+#         train_mask_path = os.path.join(root, 'val', 'GT')
+
+#         images = os.listdir(train_img_path)
+#         labels = os.listdir(train_mask_path)
+
+#         images.sort()
+#         labels.sort()
+
+#         for it_im, it_gt in zip(images, labels):
+#             item = (os.path.join(train_img_path, it_im), os.path.join(train_mask_path, it_gt))
+#             items.append(item)
+#     else:
+#         train_img_path = os.path.join(root, 'test', 'Img')
+#         train_mask_path = os.path.join(root, 'test', 'GT')
+
+#         images = os.listdir(train_img_path)
+#         labels = os.listdir(train_mask_path)
+
+#         images.sort()
+#         labels.sort()
+
+#         for it_im, it_gt in zip(images, labels):
+#             item = (os.path.join(train_img_path, it_im), os.path.join(train_mask_path, it_gt))
+#             items.append(item)
+
+#     return items
 def make_dataset(root, mode):
     assert mode in ['train', 'val', 'test']
     items = []
-    if mode == 'train':
-        train_img_path = os.path.join(root, 'train', 'Img')
-        train_mask_path = os.path.join(root, 'train', 'GT')
-
-        images = os.listdir(train_img_path)
-        labels = os.listdir(train_mask_path)
-
-        images.sort()
-        labels.sort()
-        
-        for it_im, it_gt in zip(images, labels):
-            item = (os.path.join(train_img_path, it_im), os.path.join(train_mask_path, it_gt))
+    # move to the folder mathing the mode, then for each subfolder add the images and masks to a tuple list
+    path = os.path.join(root, mode)
+    for subfolder in os.listdir(path):
+        subfolder_path = os.path.join(path, subfolder)
+        mask = os.path.join(subfolder_path, 'mask.png')
+        voxels = os.listdir(os.path.join(subfolder_path, 'surface_volume'))
+        voxels.sort()
+        for voxel in voxels:
+            item = (os.path.join(subfolder_path, 'surface_volume', voxel), mask)
             items.append(item)
-    elif mode == 'val':
-        train_img_path = os.path.join(root, 'val', 'Img')
-        train_mask_path = os.path.join(root, 'val', 'GT')
-
-        images = os.listdir(train_img_path)
-        labels = os.listdir(train_mask_path)
-
-        images.sort()
-        labels.sort()
-
-        for it_im, it_gt in zip(images, labels):
-            item = (os.path.join(train_img_path, it_im), os.path.join(train_mask_path, it_gt))
-            items.append(item)
-    else:
-        train_img_path = os.path.join(root, 'test', 'Img')
-        train_mask_path = os.path.join(root, 'test', 'GT')
-
-        images = os.listdir(train_img_path)
-        labels = os.listdir(train_mask_path)
-
-        images.sort()
-        labels.sort()
-
-        for it_im, it_gt in zip(images, labels):
-            item = (os.path.join(train_img_path, it_im), os.path.join(train_mask_path, it_gt))
-            items.append(item)
-
     return items
 
 
