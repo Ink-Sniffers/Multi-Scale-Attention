@@ -7,6 +7,9 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from torch.optim import Adam
 
+
+from sklearn.model_selection import train_test_split
+
 import dill
 import argparse
 from data import medicalDataLoader
@@ -62,16 +65,18 @@ def runTraining(args):
                                                       augment=True,
                                                       equalize=False)
 
+    train_set, val_set = train_test_split(train_set, test_size=0.33, random_state=42)
+
     train_loader = DataLoader(train_set,
                               batch_size=batch_size,
                               num_workers=args.num_workers,
                               shuffle=True)
 
-    val_set = medicalDataLoader.MedicalImageDataset('val',
-                                                    root_dir,
-                                                    transform=transform,
-                                                    mask_transform=mask_transform,
-                                                    equalize=False)
+    #val_set = medicalDataLoader.MedicalImageDataset('val',
+    #                                                root_dir,
+    #                                                transform=transform,
+    #                                                mask_transform=mask_transform,
+    #                                                equalize=False)
 
     val_loader = DataLoader(val_set,
                             batch_size=batch_size_val,

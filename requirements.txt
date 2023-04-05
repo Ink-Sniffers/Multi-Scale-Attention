@@ -7,6 +7,7 @@ idna==3.4
 imageio==2.27.0
 importlib-resources==5.12.0
 Jinja2==3.1.2
+joblib==1.2.0
 lazy-loader==0.2
 lit==15.0.7
 MarkupSafe==2.1.2
@@ -23,10 +24,12 @@ pytz==2023.3
 PyWavelets==1.4.1
 requests==2.28.1
 scikit-image==0.20.0
+scikit-learn==1.2.2
 scipy==1.9.1
 SimpleITK==2.2.1
 six==1.16.0
 sympy==1.11.1
+threadpoolctl==3.1.0
 tifffile==2023.3.21
 torch==2.0.0+cu118
 torchaudio==2.0.1+cu118
